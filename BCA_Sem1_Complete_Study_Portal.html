@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BCA Semester 1 — Complete Study Portal</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+:root{--bg:#0b0d14;--card:#13162200;--card2:#1a1d2a;--border:#252840;--text:#e8eaf6;--muted:#7a84a0;--yellow:#ffe066;--green:#3ddc84;--red:#ff6b6b;--blue:#64b5f6;--purple:#ce93d8;--orange:#ffab40;--pink:#f48fb1;--teal:#4dd0e1}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;font-size:15px;line-height:1.75;min-height:100vh}
+
+/* ---- TOP HERO ---- */
+.site-hero{background:linear-gradient(135deg,#0d1117 0%,#131a2e 50%,#0d1117 100%);border-bottom:2px solid #252840;padding:22px 28px 0;position:relative;overflow:hidden}
+.site-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,#6c63ff22,transparent 70%);pointer-events:none}
+.hero-top{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+.hero-top .logo{font-size:36px}
+.hero-top h1{font-size:22px;font-weight:900;color:var(--yellow);line-height:1.2}
+.hero-top p{font-size:12px;color:var(--muted);margin-top:2px}
+.subject-tabs{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;margin-top:4px}
+.subject-tabs::-webkit-scrollbar{display:none}
+.stab{padding:12px 20px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;border:none;cursor:pointer;transition:all .2s;white-space:nowrap;background:transparent;color:var(--muted);border-bottom:3px solid transparent;border-radius:0;position:relative}
+.stab:hover{color:var(--text)}
+.stab.active{color:white;border-bottom-color:var(--subcolor,#6c63ff)}
+.stab .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:7px;background:var(--subcolor,#6c63ff)}
+
+/* ---- MAIN ---- */
+.main{max-width:980px;margin:0 auto;padding:24px 16px 80px}
+.subject-page{display:none}.subject-page.active{display:block}
+
+/* ---- MODULE OVERVIEW STRIP ---- */
+.mod-strip{display:flex;gap:10px;overflow-x:auto;margin-bottom:24px;padding-bottom:4px;scrollbar-width:none}
+.mod-strip::-webkit-scrollbar{display:none}
+.mod-chip{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:10px 16px;white-space:nowrap;cursor:pointer;transition:all .2s;border-top:3px solid var(--subcolor,#6c63ff);min-width:120px;text-align:center}
+.mod-chip:hover{background:#1f2235}.mod-chip h4{font-size:11px;font-weight:900;color:var(--subcolor,#6c63ff);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.mod-chip p{font-size:11px;color:var(--muted);line-height:1.3}
+
+/* ---- SECTION PANELS ---- */
+.panel{background:#111420;border-radius:14px;border:1px solid var(--border);margin-bottom:18px;overflow:hidden}
+.ph{padding:16px 20px;display:flex;align-items:center;gap:11px;cursor:pointer;user-select:none}
+.ph:hover{background:#1a1d2a}.pi{font-size:20px}.pt{font-size:16px;font-weight:800;flex:1}
+.pbadge{font-size:10px;padding:3px 10px;border-radius:100px;font-weight:800}
+.parr{font-size:14px;color:var(--muted);transition:transform .2s}.parr.open{transform:rotate(180deg)}
+.pb{padding:20px;display:none}.pb.show{display:block}
+.snum{display:inline-block;background:var(--subcolor,#6c63ff);color:#fff;padding:1px 9px;border-radius:5px;font-size:11px;font-weight:900;margin-right:6px;vertical-align:middle}
+
+/* ---- BOXES ---- */
+.box{border-radius:10px;padding:14px 18px;margin:14px 0;border-left:4px solid}
+.box-def{background:#1a1f2d;border-color:#6c63ff}.box-simple{background:#1a2d1a;border-color:#3ddc84}
+.box-why{background:#1f1a2d;border-color:#ce93d8}.box-mem{background:#2d2a1a;border-color:#ffe066}
+.box-exam{background:#2d1a1a;border-color:#ff6b6b}.box-story{background:#1a2728;border-color:#4dd0e1}
+.box-note{background:#1a232d;border-color:#64b5f6}
+.blbl{font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;display:block}
+.ldef{color:#a79bff}.lsimple{color:#3ddc84}.lwhy{color:#ce93d8}.lmem{color:#ffe066}
+.lexam{color:#ff6b6b}.lstory{color:#4dd0e1}.lnote{color:#64b5f6}
+
+/* ---- TABLES ---- */
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+th{background:#1e2240;color:var(--yellow);padding:9px 12px;text-align:left;font-weight:800}
+td{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:nth-child(even) td{background:#131620}tr:hover td{background:#1a1d2a}
+
+/* ---- GLOSSARY ---- */
+.glossary{display:grid;gap:8px;margin:12px 0}
+.gi{display:flex;gap:12px;align-items:flex-start;background:#13162a;border-radius:8px;padding:10px 14px}
+.gt{min-width:120px;font-weight:800;color:#a79bff;font-size:13px}.gd{font-size:13px;color:var(--muted)}
+
+/* ---- MCQ ---- */
+.mcq{background:#13162a;border-radius:12px;padding:16px;margin:12px 0;border:1px solid var(--border)}
+.mcq-q{font-weight:800;margin-bottom:10px;font-size:14px}
+.mcq-opts{display:flex;flex-direction:column;gap:7px}
+.opt{padding:9px 14px;border-radius:7px;background:#0b0d14;border:1px solid var(--border);cursor:pointer;font-size:13px;transition:all .2s}
+.opt:hover{border-color:#6c63ff;background:#1a1d2a}
+.opt.ok{background:#1a2d1a;border-color:#3ddc84;color:#3ddc84}
+.opt.no{background:#2d1a1a;border-color:#ff6b6b;color:#ff6b6b}
+.mcq-exp{margin-top:10px;display:none;font-size:12px;color:var(--muted);background:#0b0d14;padding:9px;border-radius:7px}
+.mcq-exp.show{display:block}
+
+/* ---- FLOWCHART ---- */
+.flow{display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:4px}
+.fbox{background:#1e2240;border:2px solid var(--subcolor,#6c63ff);border-radius:9px;padding:9px 18px;font-size:13px;font-weight:700;text-align:center;max-width:260px;width:100%}
+.farr{font-size:20px;color:var(--subcolor,#6c63ff)}
+
+/* ---- CODE ---- */
+pre{background:#060810;border:1px solid var(--border);border-radius:9px;padding:16px;overflow-x:auto;margin:12px 0;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.7;color:#e8eaf6}
+code{font-family:'JetBrains Mono',monospace;background:#060810;color:#3ddc84;padding:2px 6px;border-radius:4px;font-size:12px}
+
+/* ---- REVISION GRID ---- */
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:14px 0}
+.rcard{background:#13162a;border-radius:10px;padding:13px 16px;border-top:3px solid var(--subcolor,#6c63ff)}
+.rcard h5{font-size:12px;font-weight:900;color:var(--yellow);margin-bottom:6px}
+.rcard p{font-size:12px;color:var(--muted);margin:0}
+
+/* ---- GENERATION TAGS ---- */
+.g1{background:#2d2020;color:#ff9090;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:800}
+.g2{background:#2d2a1a;color:#ffc060;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:800}
+.g3{background:#1f2d1a;color:#80ff80;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:800}
+.g4{background:#1a1f2d;color:#80c0ff;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:800}
+.g5{background:#2d1f2d;color:#d080ff;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:800}
+
+h2{font-size:20px;font-weight:900;color:var(--yellow);margin-bottom:12px}
+h3{font-size:16px;font-weight:800;color:var(--subcolor,#a79bff);margin:18px 0 8px}
+h4{font-size:14px;font-weight:800;color:#3ddc84;margin:14px 0 7px}
+p{margin-bottom:10px;color:var(--text)}
+ul,ol{padding-left:20px;margin-bottom:10px}li{margin-bottom:5px}
+strong{color:var(--yellow);font-weight:800}em{color:#3ddc84;font-style:normal;font-weight:700}
+hr{border:none;border-top:1px solid var(--border);margin:20px 0}
+
+.connect{background:#1a1f2d;border:1px dashed var(--subcolor,#6c63ff);border-radius:9px;padding:12px 16px;margin:14px 0;font-size:13px;color:var(--muted)}
+.connect strong{color:var(--subcolor,#6c63ff)}
+
+/* SUBJECT COLORS */
+.sub-c    {--subcolor:#6c63ff}
+.sub-cs   {--subcolor:#3ddc84}
+.sub-hci  {--subcolor:#ff6b6b}
+.sub-math {--subcolor:#ffab40}
+.sub-bc   {--subcolor:#4dd0e1}
+
+.badge-mod{background:#1e2240;color:#a79bff}
+.badge-exam{background:#2d1a1a;color:#ff6b6b}
+.badge-tip{background:#2a2a1a;color:#ffe066}
+.badge-imp{background:#1a2d1a;color:#3ddc84}
+
+/* STEPS */
+.steps{list-style:none;padding:0;counter-reset:s}
+.steps li{counter-increment:s;padding:10px 12px 10px 46px;position:relative;border-bottom:1px solid var(--border)}
+.steps li:last-child{border:none}
+.steps li::before{content:counter(s);position:absolute;left:12px;top:50%;transform:translateY(-50%);width:24px;height:24px;background:var(--subcolor,#6c63ff);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px;color:#fff}
+
+/* NUMBER SYSTEM TABLE */
+.ns-card{background:#13162a;border-radius:10px;padding:14px 18px;margin:10px 0;border-left:4px solid var(--subcolor,#6c63ff)}
+.ns-card h5{font-weight:900;color:var(--yellow);margin-bottom:6px;font-size:14px}
+
+/* MATH SPECIAL */
+.formula{background:#060810;border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin:12px 0;font-family:'JetBrains Mono',monospace;font-size:13px;color:#4dd0e1;text-align:center}
+.venn{display:flex;justify-content:center;align-items:center;padding:20px;gap:0;margin:14px 0}
+.circle{width:100px;height:100px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+</style>
+</head>
+<body>
+
+<!-- SITE HERO -->
+<div class="site-hero">
+  <div class="hero-top">
+    <span class="logo">🎓</span>
+    <div>
+      <h1>BCA Semester 1 — Complete Study Portal</h1>
+      <p>5 Subjects · Personal Teacher Mode · Exam Coach · Easy English · Amity University</p>
+    </div>
+  </div>
+  <div class="subject-tabs">
+    <button class="stab active sub-c" style="--subcolor:#6c63ff" onclick="showSub('c',this)">
+      <span class="dot" style="background:#6c63ff"></span>💻 Programming in C
+    </button>
+    <button class="stab sub-cs" style="--subcolor:#3ddc84" onclick="showSub('cs',this)">
+      <span class="dot" style="background:#3ddc84"></span>🖥️ Computer Science & IT
+    </button>
+    <button class="stab sub-hci" style="--subcolor:#ff6b6b" onclick="showSub('hci',this)">
+      <span class="dot" style="background:#ff6b6b"></span>🖱️ Human Computer Interaction
+    </button>
+    <button class="stab sub-math" style="--subcolor:#ffab40" onclick="showSub('math',this)">
+      <span class="dot" style="background:#ffab40"></span>📐 Basic Mathematics-I
+    </button>
+    <button class="stab sub-bc" style="--subcolor:#4dd0e1" onclick="showSub('bc',this)">
+      <span class="dot" style="background:#4dd0e1"></span>💬 Business Communication
+    </button>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ===================== PROGRAMMING IN C ===================== -->
+<div id="sub-c" class="subject-page sub-c active">
+  <div class="mod-strip">
+    <div class="mod-chip"><h4>Module 1</h4><p>Computer Fundamentals</p></div>
+    <div class="mod-chip"><h4>Module 2</h4><p>Basic C Programming</p></div>
+    <div class="mod-chip"><h4>Module 3</h4><p>Decision Making</p></div>
+    <div class="mod-chip"><h4>Module 4</h4><p>Arrays & Functions</p></div>
+    <div class="mod-chip"><h4>Module 5</h4><p>Advanced C</p></div>
+  </div>
+
+  <!-- BIG PICTURE -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🌍</span><span class="pt">Big Picture — What is this subject?</span><span class="pbadge badge-imp">START HERE</span><span class="parr open">▼</span></div>
+    <div class="pb show">
+      <div class="box box-story"><span class="blbl lstory">🎬 Story Analogy</span>
+        <p>Think of learning C like building a house:</p>
+        <ul><li>📦 <strong>Module 1</strong> = Learn what tools exist (Computer basics)</li>
+        <li>💻 <strong>Module 2</strong> = First words in C language</li>
+        <li>🔀 <strong>Module 3</strong> = Make decisions (if/else, loops)</li>
+        <li>🧩 <strong>Module 4</strong> = Organize code (arrays, functions)</li>
+        <li>🚀 <strong>Module 5</strong> = Advanced engineering (pointers, files)</li></ul>
+      </div>
+      <div class="flow">
+        <div class="fbox">📦 Module 1: Computer Basics</div><span class="farr">⬇️</span>
+        <div class="fbox">💻 Module 2: C Variables, Data Types, Operators</div><span class="farr">⬇️</span>
+        <div class="fbox">🔀 Module 3: If/Else, Loops, Switch</div><span class="farr">⬇️</span>
+        <div class="fbox">🧩 Module 4: Arrays, Functions, Strings</div><span class="farr">⬇️</span>
+        <div class="fbox">🚀 Module 5: Pointers, Structures, Files</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 1 -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🖥️</span><span class="pt"><span class="snum">1.1</span>Basic Computer Organisation</span><span class="pbadge badge-mod">Module 1</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="box box-def"><span class="blbl ldef">📖 Definition</span><p>Basic Computer Organisation refers to the arrangement of essential components — CPU, Memory, Input/Output devices, and Storage — that work together to process data.</p></div>
+      <div class="box box-simple"><span class="blbl lsimple">💡 Simple Explanation</span>
+        <p>A computer is like a <strong>food stall</strong>: 👨‍🍳 Cook = CPU, 📝 Order slip = RAM, 📦 Store room = Hard Disk, 🗣️ Customer = Input, 🍽️ Food served = Output.</p>
+      </div>
+      <div class="flow">
+        <div class="fbox" style="border-color:#3ddc84">⌨️ INPUT (Keyboard, Mouse)</div><span class="farr">⬇️</span>
+        <div class="fbox">🧠 CPU (ALU + Control Unit)</div><span class="farr">⬇️</span>
+        <div class="fbox" style="border-color:#ff6b6b">🖥️ OUTPUT (Monitor, Printer)</div>
+      </div>
+      <div class="box box-mem"><span class="blbl lmem">🧠 Memory Trick</span><p><strong>"I Can Make Output"</strong> → Input → CPU → Memory → Output</p></div>
+      <div class="box box-exam"><span class="blbl lexam">✍️ 2-Mark Exam Answer</span><p>A computer system has four main units: Input Unit, CPU (with ALU and CU), Memory Unit, and Output Unit. The System Bus connects all components for communication.</p></div>
+    </div>
+  </div>
+
+  <!-- CHARACTERISTICS -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">⭐</span><span class="pt"><span class="snum">1.1.1</span>Introduction to Computers — Characteristics</span><span class="pbadge badge-mod">Module 1</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="box box-def"><span class="blbl ldef">📖 Definition</span><p>A computer is an electronic device that receives data (input), processes it through instructions, and produces useful output. It can store and retrieve data as needed.</p></div>
+      <table>
+        <tr><th>#</th><th>Characteristic</th><th>Simple Meaning</th></tr>
+        <tr><td>1</td><td><strong>Speed</strong></td><td>Millions of instructions per second (microseconds/nanoseconds)</td></tr>
+        <tr><td>2</td><td><strong>Accuracy</strong></td><td>100% accurate if given correct data — "Garbage In, Garbage Out"</td></tr>
+        <tr><td>3</td><td><strong>Diligence</strong></td><td>Never gets tired, works 24/7 without errors</td></tr>
+        <tr><td>4</td><td><strong>Memory</strong></td><td>Stores and retrieves data perfectly</td></tr>
+        <tr><td>5</td><td><strong>Versatility</strong></td><td>One computer can do many different tasks</td></tr>
+        <tr><td>6</td><td><strong>Programmability</strong></td><td>Can be instructed to do any task via programs</td></tr>
+        <tr><td>7</td><td><strong>Automation</strong></td><td>Runs tasks without constant human help</td></tr>
+        <tr><td>8</td><td><strong>No Emotion / No IQ</strong></td><td>Only follows instructions — no thinking of its own</td></tr>
+      </table>
+      <div class="box box-mem"><span class="blbl lmem">🧠 Memory Trick</span><p><strong>"SPAM-D"</strong> = Speed, Programmability, Accuracy, Memory, Diligence (5 most asked)</p></div>
+      <table><tr><th>Generation</th><th>Years</th><th>Technology</th><th>Key Features</th><th>Example</th></tr>
+        <tr><td><span class="g1">1st</span></td><td>1940-56</td><td>Vacuum Tubes</td><td>Huge, hot, slow, machine language</td><td>ENIAC, UNIVAC</td></tr>
+        <tr><td><span class="g2">2nd</span></td><td>1956-63</td><td>Transistors</td><td>Smaller, reliable, FORTRAN/COBOL</td><td>IBM 1401</td></tr>
+        <tr><td><span class="g3">3rd</span></td><td>1964-71</td><td>Integrated Circuits</td><td>Multi-programming, nanoseconds</td><td>IBM 360</td></tr>
+        <tr><td><span class="g4">4th</span></td><td>1971-now</td><td>Microprocessor</td><td>Personal computers, cheap, GUI</td><td>IBM PC</td></tr>
+        <tr><td><span class="g5">5th</span></td><td>Now-future</td><td>Artificial Intelligence</td><td>Voice recognition, machine learning</td><td>AI systems</td></tr>
+      </table>
+      <div class="box box-mem"><span class="blbl lmem">🧠 Memory Trick — Generations</span><p><strong>"Very Tiny Integrated Micro AI"</strong> = Vacuum tubes → Transistors → IC → Microprocessor → AI</p>
+      <p>Father of Computers = <strong>Charles Babbage</strong> | First Programmer = <strong>Lady Ada Lovelace</strong></p></div>
+    </div>
+  </div>
+
+  <!-- MODULE 2 INTRO -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">💻</span><span class="pt"><span class="snum">2.1</span>Introduction to C Programming</span><span class="pbadge badge-exam">⭐ Very Important</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="box box-def"><span class="blbl ldef">📖 Definition</span><p>C is a general-purpose, structured, middle-level programming language developed by <strong>Dennis Ritchie</strong> at Bell Labs in 1972. It is fast, portable, and used for system-level programming.</p></div>
+      <div class="box box-simple"><span class="blbl lsimple">💡 Why C exists</span><p>Computers only understand 0s and 1s. C lets humans write code in English-like words, which a compiler converts into machine code. C is fast because it compiles the whole program at once.</p></div>
+      <h3>Basic Structure of a C Program</h3>
+      <pre>
+#include &lt;stdio.h&gt;       // Header file — gives us printf, scanf
+
+int main() {             // main() — where program starts
+    printf("Hello!");    // Print to screen
+    return 0;            // Program ends successfully
+}
+      </pre>
+      <table>
+        <tr><th>Part</th><th>What it means</th></tr>
+        <tr><td><code>#include &lt;stdio.h&gt;</code></td><td>Include the Standard Input Output library (needed for printf/scanf)</td></tr>
+        <tr><td><code>int main()</code></td><td>Starting point of every C program — execution begins here</td></tr>
+        <tr><td><code>printf()</code></td><td>Print (display) something on screen</td></tr>
+        <tr><td><code>scanf()</code></td><td>Take input from user</td></tr>
+        <tr><td><code>return 0;</code></td><td>Tell OS that program finished successfully</td></tr>
+      </table>
+      <div class="box box-mem"><span class="blbl lmem">🧠 Memory Trick</span><p>Every C program = <strong>Include → Main → Declare → Process → Output</strong></p></div>
+    </div>
+  </div>
+
+  <!-- DATA TYPES -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">📊</span><span class="pt"><span class="snum">2.2</span>Variables, Data Types, Constants</span><span class="pbadge badge-exam">⭐ Very Important</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="box box-simple"><span class="blbl lsimple">💡 Simple Explanation</span><p>A <strong>variable</strong> is like a box with a name. You store data in it. A <strong>data type</strong> tells C what kind of data goes in the box — number? decimal? letter?</p></div>
+      <table>
+        <tr><th>Data Type</th><th>Used for</th><th>Size</th><th>Example</th></tr>
+        <tr><td><code>int</code></td><td>Whole numbers</td><td>2 or 4 bytes</td><td><code>int age = 20;</code></td></tr>
+        <tr><td><code>float</code></td><td>Decimal numbers (6 decimal places)</td><td>4 bytes</td><td><code>float price = 9.99;</code></td></tr>
+        <tr><td><code>double</code></td><td>Large decimals (15 decimal places)</td><td>8 bytes</td><td><code>double pi = 3.14159;</code></td></tr>
+        <tr><td><code>char</code></td><td>Single character/letter</td><td>1 byte</td><td><code>char grade = 'A';</code></td></tr>
+        <tr><td><code>void</code></td><td>No value / empty return</td><td>0 bytes</td><td><code>void myFunc() {}</code></td></tr>
+      </table>
+      <h3>Constants vs Variables</h3>
+      <div class="box box-note"><span class="blbl lnote">📌 Key Difference</span>
+        <p><strong>Variable:</strong> Value can change during the program. <code>int x = 5; x = 10;</code> — this works.</p>
+        <p><strong>Constant:</strong> Value never changes. Use <code>const int MAX = 100;</code> or <code>#define MAX 100</code></p>
+      </div>
+      <h3>Operators in C</h3>
+      <table>
+        <tr><th>Type</th><th>Operators</th><th>Example</th><th>Result</th></tr>
+        <tr><td>Arithmetic</td><td>+ - * / %</td><td><code>10 % 3</code></td><td>1 (remainder)</td></tr>
+        <tr><td>Relational</td><td>== != &gt; &lt; &gt;= &lt;=</td><td><code>5 == 5</code></td><td>1 (true)</td></tr>
+        <tr><td>Logical</td><td>&amp;&amp; || !</td><td><code>1 &amp;&amp; 0</code></td><td>0 (false)</td></tr>
+        <tr><td>Assignment</td><td>= += -= *= /=</td><td><code>x += 5</code></td><td>x = x + 5</td></tr>
+        <tr><td>Increment/Decrement</td><td>++ --</td><td><code>i++</code></td><td>i = i + 1</td></tr>
+      </table>
+      <div class="box box-mem"><span class="blbl lmem">🧠 Memory Trick</span><p><strong>"ARL-AI"</strong> = Arithmetic · Relational · Logical · Assignment · Increment/decrement</p></div>
+      <div class="box box-exam"><span class="blbl lexam">📝 Model Answer — Variables (3 marks)</span>
+        <p>A variable is a named location in memory that stores a value which can change during program execution. Variables must be declared with a data type before use. For example: <code>int marks = 85;</code> declares an integer variable 'marks' and assigns value 85. Key data types in C are int (integers), float (decimals), char (characters), and double (large decimals).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MCQ C -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🧪</span><span class="pt">MCQ Practice — Programming in C</span><span class="pbadge badge-exam">EXAM PRACTICE</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="mcq"><p class="mcq-q">Q1. Who developed the C programming language?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'mc1')">A) Charles Babbage</div>
+          <div class="opt" onclick="ans(this,true,'mc1')">B) Dennis Ritchie</div>
+          <div class="opt" onclick="ans(this,false,'mc1')">C) Bill Gates</div>
+          <div class="opt" onclick="ans(this,false,'mc1')">D) Linus Torvalds</div>
+        </div><div class="mcq-exp" id="mc1">✅ <strong>Dennis Ritchie</strong> developed C at Bell Labs in 1972. C is the foundation for many modern languages (C++, Java, Python all have C roots).</div>
+      </div>
+      <div class="mcq"><p class="mcq-q">Q2. Which data type stores a single character in C?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'mc2')">A) int</div>
+          <div class="opt" onclick="ans(this,false,'mc2')">B) string</div>
+          <div class="opt" onclick="ans(this,true,'mc2')">C) char</div>
+          <div class="opt" onclick="ans(this,false,'mc2')">D) float</div>
+        </div><div class="mcq-exp" id="mc2">✅ <strong>char</strong> stores single characters. It takes 1 byte. Example: <code>char grade = 'A';</code> Note: C has no 'string' type — strings are arrays of char.</div>
+      </div>
+      <div class="mcq"><p class="mcq-q">Q3. What does #include &lt;stdio.h&gt; do?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'mc3')">A) Defines the main function</div>
+          <div class="opt" onclick="ans(this,true,'mc3')">B) Includes standard input/output library</div>
+          <div class="opt" onclick="ans(this,false,'mc3')">C) Creates a variable</div>
+          <div class="opt" onclick="ans(this,false,'mc3')">D) Prints to screen</div>
+        </div><div class="mcq-exp" id="mc3">✅ It <strong>includes the stdio.h header file</strong> which provides functions like printf() and scanf(). Without it, those functions won't work.</div>
+      </div>
+      <div class="mcq"><p class="mcq-q">Q4. What is the output of: printf("%d", 10 % 3);</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'mc4')">A) 3</div>
+          <div class="opt" onclick="ans(this,true,'mc4')">B) 1</div>
+          <div class="opt" onclick="ans(this,false,'mc4')">C) 0</div>
+          <div class="opt" onclick="ans(this,false,'mc4')">D) 10</div>
+        </div><div class="mcq-exp" id="mc4">✅ <strong>1</strong>. The % operator gives the remainder of division. 10 ÷ 3 = 3 remainder 1. So 10 % 3 = 1.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK REVISION C -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">⚡</span><span class="pt">Quick Revision — Programming in C</span><span class="pbadge badge-tip">REVISION</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="rgrid">
+        <div class="rcard"><h5>Father of C</h5><p>Dennis Ritchie, 1972, Bell Labs</p></div>
+        <div class="rcard"><h5>C is compiled by</h5><p>A Compiler (entire code at once → .exe)</p></div>
+        <div class="rcard"><h5>Entry point</h5><p>Every C program starts from <code>main()</code></p></div>
+        <div class="rcard"><h5>Data Types</h5><p>int · float · double · char · void</p></div>
+        <div class="rcard"><h5>Operators</h5><p>Arithmetic · Relational · Logical · Assignment · Increment</p></div>
+        <div class="rcard"><h5>printf vs scanf</h5><p>printf = output to screen | scanf = take input</p></div>
+        <div class="rcard"><h5>Father of Computers</h5><p>Charles Babbage</p></div>
+        <div class="rcard"><h5>Generations</h5><p>Vacuum → Transistor → IC → Microprocessor → AI</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== COMPUTER SCIENCE & IT ===================== -->
+<div id="sub-cs" class="subject-page sub-cs">
+  <div class="mod-strip">
+    <div class="mod-chip" style="--subcolor:#3ddc84"><h4>Module 1</h4><p>Intro to Computers</p></div>
+    <div class="mod-chip" style="--subcolor:#3ddc84"><h4>Module 2</h4><p>Number Systems</p></div>
+    <div class="mod-chip" style="--subcolor:#3ddc84"><h4>Module 3</h4><p>Introduction to IT</p></div>
+    <div class="mod-chip" style="--subcolor:#3ddc84"><h4>Module 4</h4><p>Operating Systems</p></div>
+    <div class="mod-chip" style="--subcolor:#3ddc84"><h4>Module 5</h4><p>Programming Concepts</p></div>
+  </div>
+
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🌍</span><span class="pt">Big Picture — Computer Science & IT</span><span class="pbadge badge-imp">START HERE</span><span class="parr open">▼</span></div>
+    <div class="pb show">
+      <div class="box box-story"><span class="blbl lstory">🎬 What this subject is about</span>
+        <p>This subject teaches you how computers THINK and COMMUNICATE. It covers: what computers are, how they process numbers (in binary), what IT is, how operating systems work, and the basics of programming.</p>
+        <p>Think of it like: <strong>Understanding how a car engine works</strong> — before you drive one (programming in C).</p>
+      </div>
+      <table><tr><th>Module</th><th>Topic</th><th>Why It Matters</th></tr>
+        <tr><td>1</td><td>Fundamentals of Computers</td><td>Background knowledge — what is a computer, types, characteristics</td></tr>
+        <tr><td>2</td><td>Number Systems</td><td>Computers use Binary (0,1) — you must understand conversion</td></tr>
+        <tr><td>3</td><td>Information Technology</td><td>What IT is, internet, software types — very exam-heavy</td></tr>
+        <tr><td>4</td><td>Operating Systems</td><td>How OS manages hardware — functions and types</td></tr>
+        <tr><td>5</td><td>Programming Concepts</td><td>Algorithms, flowcharts, OOP basics — writing logic before coding</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- CLASSIFICATION -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🗂️</span><span class="pt"><span class="snum" style="background:#3ddc84">1.1.4</span>Classification of Computers</span><span class="pbadge badge-mod">Module 1</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="box box-def"><span class="blbl ldef">📖 Definition</span><p>Computers can be classified based on three criteria: Operating Principles, Applications, and Size/Capability.</p></div>
+      <h3>Based on Operating Principles</h3>
+      <table>
+        <tr><th>Type</th><th>How it works</th><th>Example</th></tr>
+        <tr><td><strong>Digital Computer</strong></td><td>Uses 0s and 1s (discrete values). Most common type we use.</td><td>Laptop, PC, Server</td></tr>
+        <tr><td><strong>Analogue Computer</strong></td><td>Uses continuous values (like waves, temperature). Less precise.</td><td>Slide rule, Thermometer</td></tr>
+        <tr><td><strong>Hybrid Computer</strong></td><td>Combines both digital and analogue. Best of both worlds.</td><td>Hospital ICU machines</td></tr>
+      </table>
+      <h3>Based on Size and Capability</h3>
+      <table>
+        <tr><th>Type</th><th>Size</th><th>Power</th><th>Used by</th><th>Example</th></tr>
+        <tr><td><strong>Microcomputer</strong></td><td>Very small</td><td>Low</td><td>Personal users</td><td>PC, Laptop, Tablet</td></tr>
+        <tr><td><strong>Minicomputer</strong></td><td>Medium</td><td>Medium</td><td>Small departments</td><td>PDP-8 (1965)</td></tr>
+        <tr><td><strong>Mainframe</strong></td><td>Large</td><td>High</td><td>Big organizations</td><td>IBM z15 (banks, airlines)</td></tr>
+        <tr><td><strong>Supercomputer</strong></td><td>Very large</td><td>Extremely high</td><td>Scientific research</td><td>PARAM (India), Cray</td></tr>
+      </table>
+      <div class="box box-mem"><span class="blbl lmem">🧠 Memory Trick</span><p><strong>"Micro Mini Main Super"</strong> — from smallest to most powerful. Remember it like: mobile phone → desktop → office server → research lab monster.</p></div>
+      <div class="box box-exam"><span class="blbl lexam">📝 Exam Tip</span><p>Exam loves asking: "Classify computers based on size." Always write in table format with Name, Size, Power, Users, and Example columns. That gives you full marks.</p></div>
+    </div>
+  </div>
+
+  <!-- NUMBER SYSTEMS -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🔢</span><span class="pt"><span class="snum" style="background:#3ddc84">2.1</span>Number Systems and Boolean Algebra</span><span class="pbadge badge-exam">⭐ Very Important</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="box box-story"><span class="blbl lstory">🎬 Why Number Systems?</span>
+        <p>You use Base 10 (0-9) in daily life. Computers use Base 2 (only 0 and 1) because electricity has only two states: ON (1) and OFF (0). We need to convert between these systems.</p>
+      </div>
+      <table>
+        <tr><th>System</th><th>Base</th><th>Digits Used</th><th>Example</th><th>Used where</th></tr>
+        <tr><td><strong>Binary</strong></td><td>2</td><td>0, 1</td><td>1010 = 10 (decimal)</td><td>Inside computers — machine level</td></tr>
+        <tr><td><strong>Octal</strong></td><td>8</td><td>0–7</td><td>12 (octal) = 10 (decimal)</td><td>Shorthand for binary (1 octal = 3 binary)</td></tr>
+        <tr><td><strong>Decimal</strong></td><td>10</td><td>0–9</td><td>Normal numbers we use</td><td>Human everyday use</td></tr>
+        <tr><td><strong>Hexadecimal</strong></td><td>16</td><td>0–9, A–F</td><td>FF = 255 (decimal)</td><td>Memory addresses, colors in CSS</td></tr>
+      </table>
+      <h3>Binary to Decimal Conversion — Easy Method</h3>
+      <div class="box box-simple"><span class="blbl lsimple">📖 Step by Step</span>
+        <p>Convert binary <strong>1011</strong> to decimal:</p>
+        <p>Write positions from right: 2³, 2², 2¹, 2⁰ = 8, 4, 2, 1</p>
+        <p>1×8 + 0×4 + 1×2 + 1×1 = 8 + 0 + 2 + 1 = <strong>11</strong></p>
+      </div>
+      <div class="formula">Binary 1011 → 1×2³ + 0×2² + 1×2¹ + 1×2⁰ = 8+0+2+1 = 11 (Decimal)</div>
+      <h3>Decimal to Binary — Division Method</h3>
+      <div class="box box-simple"><span class="blbl lsimple">📖 Step by Step</span>
+        <p>Convert <strong>13</strong> to binary:</p>
+        <p>13 ÷ 2 = 6 remainder <strong>1</strong></p>
+        <p>6 ÷ 2 = 3 remainder <strong>0</strong></p>
+        <p>3 ÷ 2 = 1 remainder <strong>1</strong></p>
+        <p>1 ÷ 2 = 0 remainder <strong>1</strong></p>
+        <p>Read remainders bottom to top: <strong>1101</strong></p>
+      </div>
+      <h3>Boolean Algebra — Key Laws</h3>
+      <table>
+        <tr><th>Law</th><th>Rule</th><th>Example</th></tr>
+        <tr><td>Identity</td><td>A + 0 = A, A · 1 = A</td><td>1 + 0 = 1</td></tr>
+        <tr><td>Null</td><td>A + 1 = 1, A · 0 = 0</td><td>0 · 1 = 0</td></tr>
+        <tr><td>Idempotent</td><td>A + A = A, A · A = A</td><td>1 + 1 = 1</td></tr>
+        <tr><td>Complement</td><td>A + A' = 1, A · A' = 0</td><td>1 + 0 = 1</td></tr>
+        <tr><td>De Morgan's</td><td>(A+B)' = A'·B', (A·B)' = A'+B'</td><td>Flip operation, flip operands</td></tr>
+      </table>
+      <div class="box box-mem"><span class="blbl lmem">🧠 Memory Trick — De Morgan's Law</span><p><strong>"Break the bar, change the sign"</strong> — when you remove the NOT bar over a group, change + to · or · to +, and individually NOT each variable.</p></div>
+    </div>
+  </div>
+
+  <!-- IT MODULE -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🌐</span><span class="pt"><span class="snum" style="background:#3ddc84">3.1</span>Introduction to Information Technology</span><span class="pbadge badge-mod">Module 3</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="box box-def"><span class="blbl ldef">📖 Definition</span><p>Information Technology (IT) refers to the use of computers, networks, software, and other physical devices to create, process, store, secure, and exchange data and information.</p></div>
+      <div class="box box-simple"><span class="blbl lsimple">💡 Simple Meaning</span><p>IT = Everything that involves using technology to handle information. ATMs, mobile banking, online shopping, hospital management systems — all IT!</p></div>
+      <h3>Applications of IT</h3>
+      <div class="rgrid">
+        <div class="rcard" style="--subcolor:#3ddc84"><h5>🏦 Banking</h5><p>Online transactions, ATMs, net banking</p></div>
+        <div class="rcard" style="--subcolor:#3ddc84"><h5>🏥 Healthcare</h5><p>Patient records, diagnosis systems, MRI</p></div>
+        <div class="rcard" style="--subcolor:#3ddc84"><h5>🎓 Education</h5><p>E-learning, online courses, smart classes</p></div>
+        <div class="rcard" style="--subcolor:#3ddc84"><h5>🛒 Commerce</h5><p>Amazon, Flipkart, online payments</p></div>
+        <div class="rcard" style="--subcolor:#3ddc84"><h5>🌤️ Weather</h5><p>Forecasting, satellite data processing</p></div>
+        <div class="rcard" style="--subcolor:#3ddc84"><h5>🔬 Research</h5><p>Scientific calculations, data analysis</p></div>
+      </div>
+      <h3>Internet & WWW</h3>
+      <div class="glossary">
+        <div class="gi"><span class="gt" style="color:#3ddc84">Internet</span><span class="gd">Global network of millions of computers connected together. The physical infrastructure.</span></div>
+        <div class="gi"><span class="gt" style="color:#3ddc84">WWW</span><span class="gd">World Wide Web — websites and web pages accessed through the internet using HTTP/HTTPS. Invented by Tim Berners-Lee (1989).</span></div>
+        <div class="gi"><span class="gt" style="color:#3ddc84">HTTP/HTTPS</span><span class="gd">Protocol (rules) for sending web pages. HTTPS is secure (encrypted). S = Secure.</span></div>
+        <div class="gi"><span class="gt" style="color:#3ddc84">URL</span><span class="gd">Uniform Resource Locator — the web address. Example: https://www.google.com</span></div>
+        <div class="gi"><span class="gt" style="color:#3ddc84">Browser</span><span class="gd">Software to access websites — Chrome, Firefox, Safari, Edge.</span></div>
+      </div>
+      <div class="box box-exam"><span class="blbl lexam">📌 Exam Fact</span><p>WWW ≠ Internet. Internet is the physical network. WWW is a service that RUNS on the internet. Tim Berners-Lee invented WWW, not the Internet itself.</p></div>
+    </div>
+  </div>
+
+  <!-- MCQ CS -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🧪</span><span class="pt">MCQ Practice — Computer Science & IT</span><span class="pbadge badge-exam">EXAM PRACTICE</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="mcq"><p class="mcq-q">Q1. What is the decimal value of binary 1101?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'cs1')">A) 11</div>
+          <div class="opt" onclick="ans(this,false,'cs1')">B) 12</div>
+          <div class="opt" onclick="ans(this,true,'cs1')">C) 13</div>
+          <div class="opt" onclick="ans(this,false,'cs1')">D) 14</div>
+        </div><div class="mcq-exp" id="cs1">✅ <strong>13</strong>. Calculate: 1×8 + 1×4 + 0×2 + 1×1 = 8+4+0+1 = 13.</div>
+      </div>
+      <div class="mcq"><p class="mcq-q">Q2. Who invented the World Wide Web (WWW)?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'cs2')">A) Bill Gates</div>
+          <div class="opt" onclick="ans(this,true,'cs2')">B) Tim Berners-Lee</div>
+          <div class="opt" onclick="ans(this,false,'cs2')">C) Steve Jobs</div>
+          <div class="opt" onclick="ans(this,false,'cs2')">D) Dennis Ritchie</div>
+        </div><div class="mcq-exp" id="cs2">✅ <strong>Tim Berners-Lee</strong> invented WWW in 1989 at CERN. He also created HTTP and HTML. Important: WWW ≠ Internet.</div>
+      </div>
+      <div class="mcq"><p class="mcq-q">Q3. Which is the MOST powerful type of computer?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'cs3')">A) Mainframe</div>
+          <div class="opt" onclick="ans(this,false,'cs3')">B) Minicomputer</div>
+          <div class="opt" onclick="ans(this,true,'cs3')">C) Supercomputer</div>
+          <div class="opt" onclick="ans(this,false,'cs3')">D) Microcomputer</div>
+        </div><div class="mcq-exp" id="cs3">✅ <strong>Supercomputer</strong>. India's PARAM is a famous supercomputer. Used for weather forecasting, nuclear research, climate modeling.</div>
+      </div>
+      <div class="mcq"><p class="mcq-q">Q4. According to De Morgan's Law, (A + B)' is equal to?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'cs4')">A) A' + B'</div>
+          <div class="opt" onclick="ans(this,true,'cs4')">B) A' · B'</div>
+          <div class="opt" onclick="ans(this,false,'cs4')">C) A · B</div>
+          <div class="opt" onclick="ans(this,false,'cs4')">D) A + B</div>
+        </div><div class="mcq-exp" id="cs4">✅ <strong>A' · B'</strong>. De Morgan's Law: NOT (A OR B) = (NOT A) AND (NOT B). Trick: "break the bar, change the sign."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">⚡</span><span class="pt">Quick Revision — CS & IT</span><span class="pbadge badge-tip">REVISION</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="rgrid">
+        <div class="rcard" style="--subcolor:#3ddc84"><h5>WWW Inventor</h5><p>Tim Berners-Lee (1989)</p></div>
+        <div class="rcard" style="--subcolor:#3ddc84"><h5>Number Systems</h5><p>Binary(2) · Octal(8) · Decimal(10) · Hex(16)</p></div>
+        <div class="rcard" style="--subcolor:#3ddc84"><h5>Computer Types (size)</h5><p>Micro → Mini → Mainframe → Super</p></div>
+        <div class="rcard" style="--subcolor:#3ddc84"><h5>De Morgan's Law</h5><p>(A+B)' = A'·B' and (A·B)' = A'+B'</p></div>
+        <div class="rcard" style="--subcolor:#3ddc84"><h5>Binary conversion</h5><p>Multiply by powers of 2 (from right side)</p></div>
+        <div class="rcard" style="--subcolor:#3ddc84"><h5>IT Applications</h5><p>Banking · Healthcare · Education · Commerce · Weather</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== HCI ===================== -->
+<div id="sub-hci" class="subject-page sub-hci">
+  <div class="mod-strip">
+    <div class="mod-chip" style="--subcolor:#ff6b6b"><h4>Module 1</h4><p>Interaction Design</p></div>
+    <div class="mod-chip" style="--subcolor:#ff6b6b"><h4>Module 2</h4><p>Design & Software Process</p></div>
+    <div class="mod-chip" style="--subcolor:#ff6b6b"><h4>Module 3</h4><p>Evaluation</p></div>
+    <div class="mod-chip" style="--subcolor:#ff6b6b"><h4>Module 4</h4><p>Models & Theories</p></div>
+  </div>
+
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🌍</span><span class="pt">Big Picture — Human Computer Interaction</span><span class="pbadge badge-imp">START HERE</span><span class="parr open">▼</span></div>
+    <div class="pb show">
+      <div class="box box-story"><span class="blbl lstory">🎬 What is HCI in simple words?</span>
+        <p>When you use your phone, the buttons feel natural, apps are easy to use, and you don't need to read a manual. That is NOT an accident. Someone DESIGNED it to be easy. <strong>HCI is the science of designing computers/software so humans can use them comfortably.</strong></p>
+        <p>HCI = Human + Computer + Interaction. It asks: "How can computers be designed so humans understand and use them easily, without confusion or frustration?"</p>
+      </div>
+      <table>
+        <tr><th>Module</th><th>Topic</th><th>Simple meaning</th></tr>
+        <tr><td>1</td><td>Interaction Design</td><td>How humans interact — eyes, ears, memory, reasoning</td></tr>
+        <tr><td>2</td><td>Design Process</td><td>How to design good interfaces step-by-step</td></tr>
+        <tr><td>3</td><td>Evaluation</td><td>How to TEST if a design is good</td></tr>
+        <tr><td>4</td><td>Models & Theories</td><td>Scientific models that explain human behavior</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODULE 1 HCI -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🖱️</span><span class="pt"><span class="snum" style="background:#ff6b6b">1.1.1</span>Introduction to HCI</span><span class="pbadge badge-mod">Module 1</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="box box-def"><span class="blbl ldef">📖 Definition (Exam Style)</span><p>Human Computer Interaction (HCI) is a multidisciplinary field that studies how humans interact with computers and how to design computer systems that are user-friendly, efficient, and safe.</p></div>
+      <div class="box box-simple"><span class="blbl lsimple">💡 Simple Explanation</span><p>HCI is about making technology easy for people. It studies: how humans see (sight), hear (sound), touch (feel), and remember things — then uses that knowledge to design better software and hardware.</p></div>
+      <h3>Why HCI exists</h3>
+      <ul>
+        <li>Many computer systems fail because users can't understand them</li>
+        <li>If software is confusing, people make mistakes (sometimes dangerous ones in hospitals/aircraft)</li>
+        <li>HCI ensures systems are designed WITH users in mind, not just for engineers</li>
+      </ul>
+      <h3>1.1.2 — Human Input/Output Channels</h3>
+      <table>
+        <tr><th>Sense</th><th>How humans use it with computers</th><th>Design implication</th></tr>
+        <tr><td>👁️ Sight</td><td>Reading screen, seeing icons, color</td><td>Good contrast, readable fonts, color-blind friendly</td></tr>
+        <tr><td>👂 Hearing</td><td>Alert sounds, voice feedback, music</td><td>Sound alerts for important events</td></tr>
+        <tr><td>✋ Touch</td><td>Keyboard typing, touchscreen, mouse</td><td>Button size, feedback on click, tactile response</td></tr>
+        <tr><td>🧠 Memory</td><td>Remembering menus, shortcuts, procedures</td><td>Consistent menus, undo button, clear labels</td></tr>
+      </table>
+      <h3>1.1.3 — Types of Human Memory</h3>
+      <table>
+        <tr><th>Memory Type</th><th>Duration</th><th>Capacity</th><th>Example</th></tr>
+        <tr><td><strong>Sensory Memory</strong></td><td>Less than 1 second</td><td>Everything sensed</td><td>Seeing an image flash on screen briefly</td></tr>
+        <tr><td><strong>Short-Term (Working) Memory</strong></td><td>15–30 seconds</td><td>7±2 items (Miller's Law)</td><td>Remembering a phone number you just saw</td></tr>
+        <tr><td><strong>Long-Term Memory</strong></td><td>Unlimited (lifetime)</td><td>Unlimited</td><td>Knowing how to use Microsoft Word after years</td></tr>
+      </table>
+      <div class="box box-note"><span class="blbl lnote">📌 Miller's Law — Very Important for Exam</span>
+        <p>Psychologist George Miller found that humans can hold <strong>7 ± 2 items</strong> (5 to 9) in short-term memory at once.</p>
+        <p><strong>Design implication:</strong> Don't put more than 7 items in a menu. Phone numbers are grouped in sets of 3-4 digits for the same reason!</p>
+      </div>
+      <div class="box box-mem"><span class="blbl lmem">🧠 Memory Trick</span><p><strong>"Silly Short Lasts Long"</strong> = Sensory (shorter) → Short-term → Long-term (lasts longest)</p></div>
+    </div>
+  </div>
+
+  <!-- MODULE 2 HCI -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🎨</span><span class="pt"><span class="snum" style="background:#ff6b6b">2.1</span>Interaction Design — Design Process</span><span class="pbadge badge-mod">Module 2</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="box box-def"><span class="blbl ldef">📖 Definition</span><p>Interaction Design is the process of creating interfaces that allow humans and computers to communicate effectively. It focuses on behavior, structure, and feedback of interactive systems.</p></div>
+      <h3>The Design Process — Steps</h3>
+      <div class="flow">
+        <div class="fbox" style="border-color:#ff6b6b">1. Understand Users — Who are they? What do they need?</div><span class="farr" style="color:#ff6b6b">⬇️</span>
+        <div class="fbox" style="border-color:#ff6b6b">2. Design — Create screen layouts, menus, interactions</div><span class="farr" style="color:#ff6b6b">⬇️</span>
+        <div class="fbox" style="border-color:#ff6b6b">3. Prototype — Build a basic model/mockup</div><span class="farr" style="color:#ff6b6b">⬇️</span>
+        <div class="fbox" style="border-color:#ff6b6b">4. Evaluate — Test with real users, find problems</div><span class="farr" style="color:#ff6b6b">⬇️</span>
+        <div class="fbox" style="border-color:#ff6b6b">5. Iterate — Fix problems and repeat</div>
+      </div>
+      <h3>2.3 — Golden Rules of Interface Design (Shneiderman's 8 Rules)</h3>
+      <ul class="steps">
+        <li><strong>Strive for consistency</strong> — Same actions should work the same way everywhere</li>
+        <li><strong>Enable frequent users shortcuts</strong> — Let expert users do things faster</li>
+        <li><strong>Offer informative feedback</strong> — Always tell user what happened</li>
+        <li><strong>Design dialogs to yield closure</strong> — Actions should have a clear beginning, middle, end</li>
+        <li><strong>Offer error prevention and handling</strong> — Don't let users make serious mistakes easily</li>
+        <li><strong>Permit easy reversal</strong> — Always allow Undo</li>
+        <li><strong>Support internal locus of control</strong> — User feels in control, not the system</li>
+        <li><strong>Reduce short-term memory load</strong> — Don't ask user to remember too much (Miller's Law)</li>
+      </ul>
+      <div class="box box-mem"><span class="blbl lmem">🧠 Memory Trick</span><p><strong>"Consistent Shortcuts Feed Closure, Errors Reverse Control Memory"</strong> → first letters of all 8 rules!</p></div>
+    </div>
+  </div>
+
+  <!-- MODULE 3 EVALUATION -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🔍</span><span class="pt"><span class="snum" style="background:#ff6b6b">3.1</span>Evaluation in HCI</span><span class="pbadge badge-mod">Module 3</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="box box-def"><span class="blbl ldef">📖 Definition</span><p>Evaluation in HCI is the process of testing a system or prototype with real users or experts to identify usability problems and ensure the system meets user needs.</p></div>
+      <table>
+        <tr><th>Method</th><th>Who does it</th><th>How it works</th></tr>
+        <tr><td><strong>Expert Evaluation (Heuristic)</strong></td><td>HCI experts</td><td>Experts review interface against known guidelines/rules</td></tr>
+        <tr><td><strong>User Testing</strong></td><td>Real users</td><td>Users perform tasks while evaluator observes and records problems</td></tr>
+        <tr><td><strong>Observational</strong></td><td>Evaluator watches</td><td>Watch users work naturally, note difficulties</td></tr>
+        <tr><td><strong>Query (Questionnaire)</strong></td><td>Users</td><td>Ask users questions (surveys) about their experience</td></tr>
+      </table>
+      <h3>3.2.1 — Color Theory and Typography</h3>
+      <table>
+        <tr><th>Design Element</th><th>Simple Rule</th><th>Why it matters</th></tr>
+        <tr><td>Color contrast</td><td>Dark text on light background (or vice versa)</td><td>Easy to read, accessible for visually impaired</td></tr>
+        <tr><td>Max colors</td><td>Use 3-5 main colors maximum</td><td>Too many = confusion and eye fatigue</td></tr>
+        <tr><td>Typography</td><td>Use clear, readable fonts (min 12px)</td><td>Small or fancy fonts are hard to read</td></tr>
+        <tr><td>Responsive Design</td><td>Design for different screen sizes</td><td>Must work on mobile, tablet, desktop</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🧪</span><span class="pt">MCQ Practice — HCI</span><span class="pbadge badge-exam">EXAM PRACTICE</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="mcq"><p class="mcq-q">Q1. Miller's Law states that humans can hold how many items in short-term memory?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'hc1')">A) 3 ± 1</div>
+          <div class="opt" onclick="ans(this,true,'hc1')">B) 7 ± 2</div>
+          <div class="opt" onclick="ans(this,false,'hc1')">C) 10 ± 3</div>
+          <div class="opt" onclick="ans(this,false,'hc1')">D) 5 ± 1</div>
+        </div><div class="mcq-exp" id="hc1">✅ <strong>7 ± 2</strong>. This means 5 to 9 items. This is why phone numbers are split in groups — to keep each group under 7.</div>
+      </div>
+      <div class="mcq"><p class="mcq-q">Q2. Which type of memory lasts only less than 1 second?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'hc2')">A) Short-term memory</div>
+          <div class="opt" onclick="ans(this,true,'hc2')">B) Sensory memory</div>
+          <div class="opt" onclick="ans(this,false,'hc2')">C) Long-term memory</div>
+          <div class="opt" onclick="ans(this,false,'hc2')">D) Working memory</div>
+        </div><div class="mcq-exp" id="hc2">✅ <strong>Sensory memory</strong>. It holds raw sensory information (what you see/hear) for less than a second before it fades or moves to short-term memory.</div>
+      </div>
+      <div class="mcq"><p class="mcq-q">Q3. HCI stands for:</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'hc3')">A) Human Computer Intelligence</div>
+          <div class="opt" onclick="ans(this,true,'hc3')">B) Human Computer Interaction</div>
+          <div class="opt" onclick="ans(this,false,'hc3')">C) Hardware Computer Interface</div>
+          <div class="opt" onclick="ans(this,false,'hc3')">D) Human Control Interface</div>
+        </div><div class="mcq-exp" id="hc3">✅ <strong>Human Computer Interaction</strong>. It studies how humans interact with computers and how to make these interactions efficient and comfortable.</div>
+      </div>
+      <div class="mcq"><p class="mcq-q">Q4. Which of Shneiderman's rules says "always allow users to undo actions"?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'hc4')">A) Strive for consistency</div>
+          <div class="opt" onclick="ans(this,false,'hc4')">B) Offer informative feedback</div>
+          <div class="opt" onclick="ans(this,true,'hc4')">C) Permit easy reversal</div>
+          <div class="opt" onclick="ans(this,false,'hc4')">D) Reduce memory load</div>
+        </div><div class="mcq-exp" id="hc4">✅ <strong>Permit easy reversal</strong>. This means Ctrl+Z / Undo. Users feel safe to explore when they know mistakes can be reversed.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">⚡</span><span class="pt">Quick Revision — HCI</span><span class="pbadge badge-tip">REVISION</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="rgrid">
+        <div class="rcard" style="--subcolor:#ff6b6b"><h5>HCI Full Form</h5><p>Human Computer Interaction</p></div>
+        <div class="rcard" style="--subcolor:#ff6b6b"><h5>Miller's Law</h5><p>7 ± 2 items in short-term memory</p></div>
+        <div class="rcard" style="--subcolor:#ff6b6b"><h5>Memory Types</h5><p>Sensory (&lt;1s) → Short-term (30s) → Long-term (forever)</p></div>
+        <div class="rcard" style="--subcolor:#ff6b6b"><h5>Shneiderman's Rules</h5><p>8 Golden Rules of interface design</p></div>
+        <div class="rcard" style="--subcolor:#ff6b6b"><h5>Evaluation Methods</h5><p>Expert · User Testing · Observational · Query</p></div>
+        <div class="rcard" style="--subcolor:#ff6b6b"><h5>Design Steps</h5><p>Understand → Design → Prototype → Evaluate → Iterate</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== BASIC MATHEMATICS ===================== -->
+<div id="sub-math" class="subject-page sub-math">
+  <div class="mod-strip">
+    <div class="mod-chip" style="--subcolor:#ffab40"><h4>Module 1</h4><p>Set Theory & Matrices</p></div>
+    <div class="mod-chip" style="--subcolor:#ffab40"><h4>Module 2</h4><p>Mathematical Logic</p></div>
+    <div class="mod-chip" style="--subcolor:#ffab40"><h4>Module 3</h4><p>Groups & Subgroups</p></div>
+    <div class="mod-chip" style="--subcolor:#ffab40"><h4>Module 4</h4><p>Graph Theory</p></div>
+    <div class="mod-chip" style="--subcolor:#ffab40"><h4>Module 5</h4><p>Statistics</p></div>
+  </div>
+
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🌍</span><span class="pt">Big Picture — Basic Mathematics-I</span><span class="pbadge badge-imp">START HERE</span><span class="parr open">▼</span></div>
+    <div class="pb show">
+      <div class="box box-story"><span class="blbl lstory">🎬 Why Math in BCA?</span>
+        <p>Mathematics is the language of computers. When you write a program, you use logic, sets, and functions. When you design a network, you use graph theory. When you analyse data, you use statistics. This subject builds your <strong>logical thinking</strong> which is the foundation of all programming.</p>
+      </div>
+      <table>
+        <tr><th>Module</th><th>Topic</th><th>Connection to CS</th></tr>
+        <tr><td>1</td><td>Set Theory & Matrices</td><td>Databases use sets; graphics use matrices</td></tr>
+        <tr><td>2</td><td>Mathematical Logic</td><td>If/Else in programming = logical statements</td></tr>
+        <tr><td>3</td><td>Groups</td><td>Algebraic structures — abstract thinking foundation</td></tr>
+        <tr><td>4</td><td>Graph Theory</td><td>Networks, social media connections, shortest path</td></tr>
+        <tr><td>5</td><td>Statistics</td><td>Data science, AI/ML, business analysis</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- SET THEORY -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🔵</span><span class="pt"><span class="snum" style="background:#ffab40;color:#000">1.1</span>Sets and Types of Sets</span><span class="pbadge badge-exam">⭐ Very Important</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="box box-def"><span class="blbl ldef">📖 Definition</span><p>A set is a <strong>well-defined collection of distinct objects</strong>. These objects are called elements or members. Sets are denoted by capital letters (A, B, C). Elements are written in curly braces: A = {1, 2, 3}.</p></div>
+      <div class="box box-simple"><span class="blbl lsimple">💡 Simple Explanation</span><p>Think of a set as a <strong>bag</strong>. A bag of fruits = {apple, mango, banana}. The bag is the set. The fruits are elements. Each fruit appears only ONCE in the bag — no duplicates!</p></div>
+      <h3>Types of Sets</h3>
+      <table>
+        <tr><th>Type</th><th>Definition</th><th>Example</th></tr>
+        <tr><td><strong>Empty / Null Set</strong></td><td>A set with NO elements. Denoted by {} or ∅</td><td>A = {} (set of months with 32 days)</td></tr>
+        <tr><td><strong>Singleton Set</strong></td><td>A set with exactly ONE element</td><td>B = {5}</td></tr>
+        <tr><td><strong>Finite Set</strong></td><td>A set with countable (limited) elements</td><td>C = {1,2,3,4,5}</td></tr>
+        <tr><td><strong>Infinite Set</strong></td><td>A set with uncountable elements</td><td>D = {1,2,3,4,...} (natural numbers)</td></tr>
+        <tr><td><strong>Equal Sets</strong></td><td>Two sets with exactly the same elements</td><td>{1,2,3} = {3,1,2} (order doesn't matter)</td></tr>
+        <tr><td><strong>Subset</strong></td><td>Set A is a subset of B if every element of A is also in B</td><td>{1,2} ⊆ {1,2,3}</td></tr>
+        <tr><td><strong>Universal Set</strong></td><td>The set containing ALL elements in discussion</td><td>U = {1,2,...,10} if we're talking about digits</td></tr>
+        <tr><td><strong>Power Set</strong></td><td>Set of ALL subsets of a set A. If |A|=n, |P(A)| = 2ⁿ</td><td>If A={1,2} → P(A)={{},{1},{2},{1,2}}</td></tr>
+      </table>
+      <h3>Set Operations</h3>
+      <table>
+        <tr><th>Operation</th><th>Symbol</th><th>Meaning</th><th>Example (A={1,2,3}, B={2,3,4})</th></tr>
+        <tr><td>Union</td><td>A ∪ B</td><td>All elements from BOTH sets</td><td>{1,2,3,4}</td></tr>
+        <tr><td>Intersection</td><td>A ∩ B</td><td>Only COMMON elements</td><td>{2,3}</td></tr>
+        <tr><td>Difference</td><td>A - B</td><td>Elements in A but NOT in B</td><td>{1}</td></tr>
+        <tr><td>Complement</td><td>A'</td><td>All elements NOT in A (from Universal set)</td><td>If U={1,2,3,4,5} → A'={4,5}</td></tr>
+        <tr><td>Cartesian Product</td><td>A × B</td><td>All ordered pairs (a,b) where a∈A, b∈B</td><td>{(1,2),(1,3),(2,2),(2,3),(3,2),(3,3)}</td></tr>
+      </table>
+      <div class="box box-note"><span class="blbl lnote">📌 De Morgan's Laws for Sets</span>
+        <div class="formula">(A ∪ B)' = A' ∩ B'     (complement of union = intersection of complements)</div>
+        <div class="formula">(A ∩ B)' = A' ∪ B'     (complement of intersection = union of complements)</div>
+      </div>
+      <div class="box box-mem"><span class="blbl lmem">🧠 Memory Trick</span><p><strong>Union ∪ = U shape = "United" = put everything together</strong></p>
+      <p><strong>Intersection ∩ = upside-down U = "common meeting point" = only shared elements</strong></p></div>
+    </div>
+  </div>
+
+  <!-- VENN DIAGRAM -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">⭕</span><span class="pt"><span class="snum" style="background:#ffab40;color:#000">1.2</span>Venn Diagrams</span><span class="pbadge badge-mod">Module 1</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="box box-def"><span class="blbl ldef">📖 Definition</span><p>A Venn Diagram is a visual representation of sets using overlapping circles inside a rectangle (Universal set). The overlapping region shows the intersection, and the combined area shows the union.</p></div>
+      <div style="text-align:center; padding:20px; background:#0b0d14; border-radius:12px; margin:12px 0">
+        <p style="color:var(--muted); font-size:12px; margin-bottom:12px">Venn Diagram: A ∩ B (shaded middle = common elements)</p>
+        <svg width="260" height="120" viewBox="0 0 260 120">
+          <rect x="5" y="5" width="250" height="110" rx="8" fill="none" stroke="#252840" stroke-width="2"/>
+          <circle cx="90" cy="60" r="50" fill="#6c63ff33" stroke="#6c63ff" stroke-width="2"/>
+          <circle cx="170" cy="60" r="50" fill="#ff6b6b33" stroke="#ff6b6b" stroke-width="2"/>
+          <text x="65" y="55" fill="#a79bff" font-size="11" font-family="Nunito">Only A</text>
+          <text x="125" y="55" fill="#ffe066" font-size="10" text-anchor="middle" font-family="Nunito">A∩B</text>
+          <text x="180" y="55" fill="#ff9090" font-size="11" font-family="Nunito">Only B</text>
+          <text x="12" y="18" fill="#7a84a0" font-size="10" font-family="Nunito">U (Universal Set)</text>
+        </svg>
+      </div>
+      <ul>
+        <li>The <strong>rectangle</strong> = Universal Set (U)</li>
+        <li>Each <strong>circle</strong> = a set (A or B)</li>
+        <li>The <strong>overlapping part</strong> = A ∩ B (intersection)</li>
+        <li>The <strong>entire colored area</strong> = A ∪ B (union)</li>
+        <li>Area <strong>outside both circles</strong> but inside rectangle = (A ∪ B)' = complement</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MATRICES -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">📊</span><span class="pt"><span class="snum" style="background:#ffab40;color:#000">1.5</span>Matrices</span><span class="pbadge badge-exam">⭐ Important</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="box box-def"><span class="blbl ldef">📖 Definition</span><p>A Matrix is a rectangular arrangement of numbers (or symbols) in rows and columns. Denoted as m × n (m rows × n columns). Each element is denoted as aᵢⱼ where i = row, j = column.</p></div>
+      <div class="box box-simple"><span class="blbl lsimple">💡 Real Life Example</span><p>A <strong>spreadsheet</strong> is like a matrix! Excel table with rows and columns = matrix. Even a cricket scorecard (players × innings) is a matrix.</p></div>
+      <h3>Types of Matrices</h3>
+      <table>
+        <tr><th>Type</th><th>Definition</th><th>Example</th></tr>
+        <tr><td>Row Matrix</td><td>Only 1 row</td><td>[1 2 3] (1×3)</td></tr>
+        <tr><td>Column Matrix</td><td>Only 1 column</td><td>[1; 2; 3] (3×1)</td></tr>
+        <tr><td>Square Matrix</td><td>Rows = Columns</td><td>2×2, 3×3</td></tr>
+        <tr><td>Zero/Null Matrix</td><td>All elements = 0</td><td>[[0,0],[0,0]]</td></tr>
+        <tr><td>Identity Matrix</td><td>1s on diagonal, 0s elsewhere</td><td>[[1,0],[0,1]]</td></tr>
+        <tr><td>Transpose</td><td>Rows become columns, columns become rows</td><td>If A = [[1,2],[3,4]], Aᵀ = [[1,3],[2,4]]</td></tr>
+      </table>
+      <h3>Matrix Multiplication Rule</h3>
+      <div class="box box-note"><span class="blbl lnote">📌 Important Rule</span><p>You can only multiply matrices A(m×n) and B(n×p) if the <strong>number of columns of A = number of rows of B</strong>. The result is a matrix of size m×p.</p></div>
+      <div class="box box-mem"><span class="blbl lmem">🧠 Memory Trick</span><p><strong>Transpose = "Flip the matrix like a pancake"</strong> — rows become columns. If original is 2×3, transpose is 3×2.</p></div>
+    </div>
+  </div>
+
+  <!-- MATH LOGIC -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🧠</span><span class="pt"><span class="snum" style="background:#ffab40;color:#000">2.1</span>Mathematical Logic</span><span class="pbadge badge-exam">⭐ Very Important</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="box box-def"><span class="blbl ldef">📖 Definition</span><p>Mathematical Logic studies propositions (statements that are either TRUE or FALSE) and logical connectives (AND, OR, NOT, IF-THEN) to form compound statements and truth tables.</p></div>
+      <div class="box box-simple"><span class="blbl lsimple">💡 Connection to Programming</span><p>if (x > 5 AND x &lt; 10) — this is exactly mathematical logic! AND, OR, NOT in programming = ∧, ∨, ¬ in logic.</p></div>
+      <h3>Logical Connectives</h3>
+      <table>
+        <tr><th>Name</th><th>Symbol</th><th>Meaning</th><th>True when</th></tr>
+        <tr><td>Conjunction</td><td>∧ (AND)</td><td>p AND q</td><td>Both p and q are TRUE</td></tr>
+        <tr><td>Disjunction</td><td>∨ (OR)</td><td>p OR q</td><td>At least one is TRUE</td></tr>
+        <tr><td>Negation</td><td>¬ (NOT)</td><td>NOT p</td><td>p is FALSE</td></tr>
+        <tr><td>Implication</td><td>→ (IF-THEN)</td><td>p implies q</td><td>Only FALSE when p=T and q=F</td></tr>
+        <tr><td>Biconditional</td><td>↔ (IFF)</td><td>p if and only if q</td><td>Both same (both T or both F)</td></tr>
+      </table>
+      <h3>Truth Table for AND (∧) and OR (∨)</h3>
+      <table>
+        <tr><th>p</th><th>q</th><th>p ∧ q (AND)</th><th>p ∨ q (OR)</th><th>¬p (NOT p)</th></tr>
+        <tr><td>T</td><td>T</td><td style="color:#3ddc84">T</td><td style="color:#3ddc84">T</td><td style="color:#ff6b6b">F</td></tr>
+        <tr><td>T</td><td>F</td><td style="color:#ff6b6b">F</td><td style="color:#3ddc84">T</td><td style="color:#ff6b6b">F</td></tr>
+        <tr><td>F</td><td>T</td><td style="color:#ff6b6b">F</td><td style="color:#3ddc84">T</td><td style="color:#3ddc84">T</td></tr>
+        <tr><td>F</td><td>F</td><td style="color:#ff6b6b">F</td><td style="color:#ff6b6b">F</td><td style="color:#3ddc84">T</td></tr>
+      </table>
+      <h3>Tautology, Contradiction, Contingency</h3>
+      <div class="glossary">
+        <div class="gi"><span class="gt" style="color:#ffab40">Tautology</span><span class="gd">A statement that is ALWAYS TRUE regardless of values. Example: p ∨ ¬p (p or not p = always true)</span></div>
+        <div class="gi"><span class="gt" style="color:#ffab40">Contradiction</span><span class="gd">A statement that is ALWAYS FALSE. Example: p ∧ ¬p (p and not p = always false, impossible)</span></div>
+        <div class="gi"><span class="gt" style="color:#ffab40">Contingency</span><span class="gd">Sometimes true, sometimes false. Depends on values. Most regular statements are contingency.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MCQ MATH -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🧪</span><span class="pt">MCQ Practice — Mathematics</span><span class="pbadge badge-exam">EXAM PRACTICE</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="mcq"><p class="mcq-q">Q1. If A = {1,2,3} and B = {2,3,4}, what is A ∩ B?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'m1')">A) {1,2,3,4}</div>
+          <div class="opt" onclick="ans(this,true,'m1')">B) {2,3}</div>
+          <div class="opt" onclick="ans(this,false,'m1')">C) {1,4}</div>
+          <div class="opt" onclick="ans(this,false,'m1')">D) {1,2,3,4,5}</div>
+        </div><div class="mcq-exp" id="m1">✅ <strong>{2,3}</strong>. Intersection (∩) means elements common to BOTH sets. 2 and 3 appear in both A and B.</div>
+      </div>
+      <div class="mcq"><p class="mcq-q">Q2. A set with no elements is called?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'m2')">A) Singleton set</div>
+          <div class="opt" onclick="ans(this,true,'m2')">B) Empty/Null set</div>
+          <div class="opt" onclick="ans(this,false,'m2')">C) Infinite set</div>
+          <div class="opt" onclick="ans(this,false,'m2')">D) Universal set</div>
+        </div><div class="mcq-exp" id="m2">✅ <strong>Empty/Null set</strong>. Denoted by {} or ∅. Example: set of all humans over 300 years old = empty set.</div>
+      </div>
+      <div class="mcq"><p class="mcq-q">Q3. If A has 3 elements, how many subsets does it have?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'m3')">A) 3</div>
+          <div class="opt" onclick="ans(this,false,'m3')">B) 6</div>
+          <div class="opt" onclick="ans(this,true,'m3')">C) 8</div>
+          <div class="opt" onclick="ans(this,false,'m3')">D) 9</div>
+        </div><div class="mcq-exp" id="m3">✅ <strong>8</strong>. Number of subsets = 2ⁿ where n = number of elements. 2³ = 8. This is the Power Set size.</div>
+      </div>
+      <div class="mcq"><p class="mcq-q">Q4. p ∧ ¬p is an example of?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'m4')">A) Tautology</div>
+          <div class="opt" onclick="ans(this,true,'m4')">B) Contradiction</div>
+          <div class="opt" onclick="ans(this,false,'m4')">C) Contingency</div>
+          <div class="opt" onclick="ans(this,false,'m4')">D) Implication</div>
+        </div><div class="mcq-exp" id="m4">✅ <strong>Contradiction</strong>. "p AND NOT p" is always false — something cannot be both true and false at the same time.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">⚡</span><span class="pt">Quick Revision — Mathematics</span><span class="pbadge badge-tip">REVISION</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="rgrid">
+        <div class="rcard" style="--subcolor:#ffab40"><h5>Set Definition</h5><p>Well-defined collection of distinct objects. No duplicates.</p></div>
+        <div class="rcard" style="--subcolor:#ffab40"><h5>Union ∪</h5><p>ALL elements from both sets combined</p></div>
+        <div class="rcard" style="--subcolor:#ffab40"><h5>Intersection ∩</h5><p>Only COMMON elements of both sets</p></div>
+        <div class="rcard" style="--subcolor:#ffab40"><h5>Power Set</h5><p>2ⁿ subsets where n = number of elements</p></div>
+        <div class="rcard" style="--subcolor:#ffab40"><h5>De Morgan's (Sets)</h5><p>(A∪B)' = A'∩B' and (A∩B)' = A'∪B'</p></div>
+        <div class="rcard" style="--subcolor:#ffab40"><h5>Tautology</h5><p>Always TRUE. Example: p ∨ ¬p</p></div>
+        <div class="rcard" style="--subcolor:#ffab40"><h5>Contradiction</h5><p>Always FALSE. Example: p ∧ ¬p</p></div>
+        <div class="rcard" style="--subcolor:#ffab40"><h5>Transpose</h5><p>Rows ↔ Columns. m×n becomes n×m</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== BUSINESS COMMUNICATION ===================== -->
+<div id="sub-bc" class="subject-page sub-bc">
+  <div class="mod-strip">
+    <div class="mod-chip" style="--subcolor:#4dd0e1"><h4>Module 1</h4><p>English Grammar</p></div>
+    <div class="mod-chip" style="--subcolor:#4dd0e1"><h4>Module 2</h4><p>Written Communication</p></div>
+    <div class="mod-chip" style="--subcolor:#4dd0e1"><h4>Module 3</h4><p>Concept of Communication</p></div>
+    <div class="mod-chip" style="--subcolor:#4dd0e1"><h4>Module 4</h4><p>Effective Presentation</p></div>
+    <div class="mod-chip" style="--subcolor:#4dd0e1"><h4>Module 5</h4><p>Employment Communication</p></div>
+  </div>
+
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🌍</span><span class="pt">Big Picture — Business Communication</span><span class="pbadge badge-imp">START HERE</span><span class="parr open">▼</span></div>
+    <div class="pb show">
+      <div class="box box-story"><span class="blbl lstory">🎬 Why Business Communication?</span>
+        <p>You may be a brilliant programmer, but if you can't explain your work clearly — in writing, in presentations, in emails — you'll struggle in the workplace. This subject teaches you the professional English and communication skills needed for office life: writing emails, giving presentations, attending interviews, group discussions, and writing reports.</p>
+      </div>
+      <table>
+        <tr><th>Module</th><th>Topic</th><th>Real-world Use</th></tr>
+        <tr><td>1</td><td>English Grammar</td><td>Writing error-free emails, reports</td></tr>
+        <tr><td>2</td><td>Written Communication</td><td>Essays, summaries, paraphrasing</td></tr>
+        <tr><td>3</td><td>Concept of Communication</td><td>Understanding how communication works in offices</td></tr>
+        <tr><td>4</td><td>Effective Presentation</td><td>Presenting projects, meetings, PowerPoint skills</td></tr>
+        <tr><td>5</td><td>Employment Communication</td><td>Resume writing, group discussions, interviews</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- GRAMMAR MODULE -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">📝</span><span class="pt"><span class="snum" style="background:#4dd0e1;color:#000">1.1</span>Essential English Grammar</span><span class="pbadge badge-mod">Module 1</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="box box-simple"><span class="blbl lsimple">💡 Why Grammar?</span><p>Grammar is the structure of language — like the syntax rules in programming. Just like a C program has rules (syntax), English has rules (grammar). Wrong grammar = miscommunication = unprofessional image.</p></div>
+      <h3>Tenses — Quick Summary</h3>
+      <table>
+        <tr><th>Tense</th><th>When used</th><th>Example</th></tr>
+        <tr><td><strong>Present Simple</strong></td><td>Regular facts, habits</td><td>"I work at TCS." / "She codes every day."</td></tr>
+        <tr><td><strong>Present Continuous</strong></td><td>Happening right now</td><td>"I am writing the report."</td></tr>
+        <tr><td><strong>Present Perfect</strong></td><td>Past action, result now</td><td>"I have submitted the file."</td></tr>
+        <tr><td><strong>Past Simple</strong></td><td>Completed past action</td><td>"She submitted the report yesterday."</td></tr>
+        <tr><td><strong>Past Continuous</strong></td><td>Was happening in the past</td><td>"I was working when the call came."</td></tr>
+        <tr><td><strong>Future Simple</strong></td><td>Will happen</td><td>"I will send the report tomorrow."</td></tr>
+        <tr><td><strong>Future Continuous</strong></td><td>Will be happening</td><td>"She will be presenting at 3pm."</td></tr>
+      </table>
+      <h3>Subject-Verb Agreement — Common Rules</h3>
+      <div class="glossary">
+        <div class="gi"><span class="gt" style="color:#4dd0e1">Rule 1</span><span class="gd">Singular subject → singular verb. "She writes code." (NOT "she write")</span></div>
+        <div class="gi"><span class="gt" style="color:#4dd0e1">Rule 2</span><span class="gd">Plural subject → plural verb. "They write code." (NOT "they writes")</span></div>
+        <div class="gi"><span class="gt" style="color:#4dd0e1">Rule 3</span><span class="gd">"Either...or" / "Neither...nor" → verb agrees with the CLOSER subject. "Neither the manager nor the employees are ready."</span></div>
+        <div class="gi"><span class="gt" style="color:#4dd0e1">Rule 4</span><span class="gd">Collective nouns (team, committee) → singular verb. "The team IS working well."</span></div>
+        <div class="gi"><span class="gt" style="color:#4dd0e1">Rule 5</span><span class="gd">Uncountable nouns (information, advice, data) → singular verb. "The data IS correct."</span></div>
+      </div>
+      <h3>Common English Errors — Avoid These!</h3>
+      <table>
+        <tr><th>Wrong</th><th>Correct</th><th>Rule</th></tr>
+        <tr><td style="color:#ff6b6b">She don't know</td><td style="color:#3ddc84">She doesn't know</td><td>Singular she/he/it → doesn't</td></tr>
+        <tr><td style="color:#ff6b6b">I have went</td><td style="color:#3ddc84">I have gone</td><td>Have + past participle, not past tense</td></tr>
+        <tr><td style="color:#ff6b6b">Between you and I</td><td style="color:#3ddc84">Between you and me</td><td>After prepositions, use object pronoun (me, him, her)</td></tr>
+        <tr><td style="color:#ff6b6b">More better</td><td style="color:#3ddc84">Better</td><td>Never use "more" with already comparative words</td></tr>
+        <tr><td style="color:#ff6b6b">The informations</td><td style="color:#3ddc84">The information</td><td>"Information" is uncountable — no plural form</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- COMMUNICATION MODULE -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">💬</span><span class="pt"><span class="snum" style="background:#4dd0e1;color:#000">3.1</span>What is Communication?</span><span class="pbadge badge-exam">⭐ Very Important</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="box box-def"><span class="blbl ldef">📖 Definition (Exam Style)</span><p>Communication is the process of transmitting information and understanding between individuals through words, symbols, actions, or gestures. The word "communication" comes from the Latin word "communis" meaning common.</p></div>
+      <div class="box box-simple"><span class="blbl lsimple">💡 Simple Meaning</span><p>Communication = making someone else understand what is in YOUR mind. It is only successful when the OTHER person understands correctly — not just when you speak!</p></div>
+      <h3>Stages (Process) of Communication</h3>
+      <div class="flow">
+        <div class="fbox" style="border-color:#4dd0e1">1. Sender (has an idea/message)</div><span class="farr" style="color:#4dd0e1">⬇️</span>
+        <div class="fbox" style="border-color:#4dd0e1">2. Encoding (converts idea into words/symbols)</div><span class="farr" style="color:#4dd0e1">⬇️</span>
+        <div class="fbox" style="border-color:#4dd0e1">3. Channel (medium — email, phone, face-to-face)</div><span class="farr" style="color:#4dd0e1">⬇️</span>
+        <div class="fbox" style="border-color:#4dd0e1">4. Receiver (receives the message)</div><span class="farr" style="color:#4dd0e1">⬇️</span>
+        <div class="fbox" style="border-color:#4dd0e1">5. Decoding (receiver interprets the message)</div><span class="farr" style="color:#4dd0e1">⬇️</span>
+        <div class="fbox" style="border-color:#4dd0e1">6. Feedback (receiver responds)</div>
+      </div>
+      <h3>Channels of Communication</h3>
+      <table>
+        <tr><th>Type</th><th>Examples</th><th>Best for</th></tr>
+        <tr><td>Verbal (spoken)</td><td>Phone calls, meetings, presentations</td><td>Quick discussion, immediate feedback</td></tr>
+        <tr><td>Written</td><td>Emails, letters, reports, memos</td><td>Formal records, detailed information</td></tr>
+        <tr><td>Non-verbal</td><td>Body language, facial expressions, gestures</td><td>Emotion, tone, attitude</td></tr>
+        <tr><td>Visual</td><td>Charts, diagrams, PowerPoint slides</td><td>Complex data, presentations</td></tr>
+      </table>
+      <h3>Barriers to Communication</h3>
+      <table>
+        <tr><th>Barrier Type</th><th>Simple Meaning</th><th>Example</th></tr>
+        <tr><td><strong>Language Barrier</strong></td><td>Sender and receiver speak different languages or use jargon</td><td>Using technical terms with a non-technical person</td></tr>
+        <tr><td><strong>Physical Barrier</strong></td><td>Distance, noise, poor network</td><td>Phone call with bad signal</td></tr>
+        <tr><td><strong>Psychological Barrier</strong></td><td>Fear, stress, emotions, bias</td><td>Not listening because you're angry</td></tr>
+        <tr><td><strong>Cultural Barrier</strong></td><td>Different cultural backgrounds, customs</td><td>Gesture that means different things in different countries</td></tr>
+        <tr><td><strong>Organizational Barrier</strong></td><td>Too many levels in hierarchy, poor policies</td><td>Message distorted as it passes through 10 managers</td></tr>
+      </table>
+      <div class="box box-mem"><span class="blbl lmem">🧠 Memory Trick — Barriers</span><p><strong>"Little Policemen Patrol Cities Often"</strong> = Language · Physical · Psychological · Cultural · Organizational</p></div>
+    </div>
+  </div>
+
+  <!-- MODULE 4 PRESENTATION -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🎤</span><span class="pt"><span class="snum" style="background:#4dd0e1;color:#000">4.1</span>Effective Presentation</span><span class="pbadge badge-mod">Module 4</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="box box-def"><span class="blbl ldef">📖 Definition</span><p>Effective presentation is the ability to deliver information clearly and confidently to an audience, using appropriate structure, visual aids, and communication skills to achieve the desired outcome.</p></div>
+      <h3>Tips for Good Presentation</h3>
+      <ul class="steps">
+        <li><strong>Preparation</strong> — Know your topic deeply. Practice 3-5 times before the real presentation.</li>
+        <li><strong>Structure</strong> — Introduction (what you'll cover) → Body (main content) → Conclusion (summary)</li>
+        <li><strong>Eye Contact</strong> — Look at the audience, not at the screen. Builds trust.</li>
+        <li><strong>Clear Voice</strong> — Speak slowly and clearly. Don't rush. Pause for effect.</li>
+        <li><strong>Simple Slides</strong> — Max 6 bullet points per slide. Large font (24pt minimum).</li>
+        <li><strong>Handle Questions</strong> — Listen fully, then answer. "That's a great question" buys you thinking time!</li>
+      </ul>
+      <h3>Resume Writing — Key Points</h3>
+      <table>
+        <tr><th>Section</th><th>What to include</th></tr>
+        <tr><td>Personal Info</td><td>Name, phone, email, LinkedIn (no age, religion, photo in modern format)</td></tr>
+        <tr><td>Objective</td><td>2-3 lines: who you are, what you want, what you offer</td></tr>
+        <tr><td>Education</td><td>Most recent first. Degree, institution, year, percentage</td></tr>
+        <tr><td>Skills</td><td>Technical (C, Python, MS Office) and soft skills (communication, teamwork)</td></tr>
+        <tr><td>Projects</td><td>Brief description, your role, technology used, outcome</td></tr>
+        <tr><td>Achievements</td><td>Awards, certificates, competitions won</td></tr>
+      </table>
+      <h3>Group Discussion — Do's and Don'ts</h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:12px 0">
+        <div class="box box-simple"><span class="blbl lsimple">✅ DO's</span>
+          <ul><li>Speak clearly and confidently</li><li>Listen when others speak</li><li>Make relevant points</li><li>Use data and examples</li><li>Maintain eye contact</li><li>Summarize at the end</li></ul>
+        </div>
+        <div class="box box-exam"><span class="blbl lexam">❌ DON'Ts</span>
+          <ul><li>Don't interrupt others</li><li>Don't monopolize the conversation</li><li>Don't go off-topic</li><li>Don't be aggressive</li><li>Don't stay silent</li><li>Don't use slang</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MCQ BC -->
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">🧪</span><span class="pt">MCQ Practice — Business Communication</span><span class="pbadge badge-exam">EXAM PRACTICE</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="mcq"><p class="mcq-q">Q1. The word "communication" comes from which Latin word?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'bc1')">A) Communicare</div>
+          <div class="opt" onclick="ans(this,true,'bc1')">B) Communis</div>
+          <div class="opt" onclick="ans(this,false,'bc1')">C) Communo</div>
+          <div class="opt" onclick="ans(this,false,'bc1')">D) Communicatio</div>
+        </div><div class="mcq-exp" id="bc1">✅ <strong>Communis</strong> meaning "common." Communication creates a common understanding between sender and receiver.</div>
+      </div>
+      <div class="mcq"><p class="mcq-q">Q2. Which is the correct sentence?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'bc2')">A) The data are incorrect</div>
+          <div class="opt" onclick="ans(this,true,'bc2')">B) The data is incorrect</div>
+          <div class="opt" onclick="ans(this,false,'bc2')">C) The datas are incorrect</div>
+          <div class="opt" onclick="ans(this,false,'bc2')">D) The data were incorrect</div>
+        </div><div class="mcq-exp" id="bc2">✅ <strong>"The data is incorrect"</strong>. "Data" in business English is treated as uncountable/singular. So it takes singular verb "is."</div>
+      </div>
+      <div class="mcq"><p class="mcq-q">Q3. Fear and stress are examples of which communication barrier?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'bc3')">A) Physical barrier</div>
+          <div class="opt" onclick="ans(this,false,'bc3')">B) Cultural barrier</div>
+          <div class="opt" onclick="ans(this,true,'bc3')">C) Psychological barrier</div>
+          <div class="opt" onclick="ans(this,false,'bc3')">D) Language barrier</div>
+        </div><div class="mcq-exp" id="bc3">✅ <strong>Psychological barrier</strong>. Internal mental states like fear, stress, biases, and emotions block effective communication.</div>
+      </div>
+      <div class="mcq"><p class="mcq-q">Q4. In the communication process, "encoding" means?</p>
+        <div class="mcq-opts">
+          <div class="opt" onclick="ans(this,false,'bc4')">A) Receiving the message</div>
+          <div class="opt" onclick="ans(this,true,'bc4')">B) Converting idea into words/symbols</div>
+          <div class="opt" onclick="ans(this,false,'bc4')">C) Sending feedback</div>
+          <div class="opt" onclick="ans(this,false,'bc4')">D) Understanding the message</div>
+        </div><div class="mcq-exp" id="bc4">✅ <strong>Converting idea into words/symbols</strong>. The sender takes their mental idea and "encodes" it into a message (words, images, sounds) that can be transmitted.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="ph" onclick="tp(this)"><span class="pi">⚡</span><span class="pt">Quick Revision — Business Communication</span><span class="pbadge badge-tip">REVISION</span><span class="parr">▼</span></div>
+    <div class="pb">
+      <div class="rgrid">
+        <div class="rcard" style="--subcolor:#4dd0e1"><h5>Communication Origin</h5><p>Latin "Communis" = Common</p></div>
+        <div class="rcard" style="--subcolor:#4dd0e1"><h5>Communication Process</h5><p>Sender → Encode → Channel → Receive → Decode → Feedback</p></div>
+        <div class="rcard" style="--subcolor:#4dd0e1"><h5>5 Barriers</h5><p>Language · Physical · Psychological · Cultural · Organizational</p></div>
+        <div class="rcard" style="--subcolor:#4dd0e1"><h5>Tenses for Exam</h5><p>Present/Past/Future × Simple/Continuous/Perfect = 9 tenses</p></div>
+        <div class="rcard" style="--subcolor:#4dd0e1"><h5>Subject-Verb</h5><p>Singular subject → singular verb. Collective nouns → singular.</p></div>
+        <div class="rcard" style="--subcolor:#4dd0e1"><h5>GD Don'ts</h5><p>No interrupting · No monopolizing · No slang · Don't stay silent</p></div>
+        <div class="rcard" style="--subcolor:#4dd0e1"><h5>"Data is" or "Data are"?</h5><p>In business English: "Data IS" — it's uncountable/singular</p></div>
+        <div class="rcard" style="--subcolor:#4dd0e1"><h5>Resume Order</h5><p>Info → Objective → Education → Skills → Projects → Achievements</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end main -->
+
+<script>
+function showSub(name, btn) {
+  document.querySelectorAll('.subject-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
+  document.getElementById('sub-' + name).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+function tp(ph) {
+  const pb = ph.nextElementSibling;
+  const arr = ph.querySelector('.parr');
+  pb.classList.toggle('show');
+  arr.classList.toggle('open');
+}
+function ans(el, ok, id) {
+  const card = el.closest('.mcq');
+  card.querySelectorAll('.opt').forEach(o => { o.style.pointerEvents='none'; o.style.opacity = o===el ? '1' : '0.4'; });
+  el.style.opacity = '1';
+  el.classList.add(ok ? 'ok' : 'no');
+  el.textContent = (ok ? '✅ ' : '❌ ') + el.textContent;
+  document.getElementById(id).classList.add('show');
+}
+</script>
+</body>
+</html>
